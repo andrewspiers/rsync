@@ -13,6 +13,18 @@ on:
 
 jobs:
 
+  config-opts:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: prep
+      run: |
+        sudo apt-get install acl libacl1-dev attr libattr1-dev liblz4-dev libzstd-dev libxxhash-dev python3-cmarkgfm openssl wget
+        wget https://download.samba.org/pub/rsync/generated-files/git-version.h
+        echo "/usr/local/bin" >>$GITHUB_PATH
+    - name: configure-opts
+      run: ./configure --help
+
   ubuntu-build:
     runs-on: ubuntu-20.04
     steps:
